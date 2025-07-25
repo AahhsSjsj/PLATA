@@ -28,7 +28,13 @@ public class LOGIN extends javax.swing.JFrame {
     
         public void inicio(){
         String usuario = TXTUSUARIO.getText();
-        String contra =String.valueOf(CONTRASEÑA.getPassword());
+        String contra = CONTRASEÑA.getText();
+        if (usuario.equals("")){
+              JOptionPane.showMessageDialog(null, "Debes Poner un caracter!", "Message", JOptionPane.ERROR_MESSAGE);
+           } else  if (contra.equals("")){
+            JOptionPane.showMessageDialog(null, "Debes Poner un caracter!", "Message", JOptionPane.ERROR_MESSAGE);
+        } else 
+        
         if (usuario.equals("LISSETH")&&(contra.equals("1234"))){
             SISTEMA menu = new SISTEMA();
         menu.setVisible(true);
@@ -38,10 +44,16 @@ public class LOGIN extends javax.swing.JFrame {
         this.dispose();
             menu.setVisible(true);
             this.dispose();
-           }else{ 
-            JOptionPane.showMessageDialog(null,"ERROR");
+           } else {
+            JOptionPane.showMessageDialog(null, "Erro Contraseña o Usuario Incorrecto!", "Message", JOptionPane.ERROR_MESSAGE);
         }
     }
+        
+        public void limpiar() {
+        
+            TXTUSUARIO.setText("");
+            CONTRASEÑA.setText("");
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -197,12 +209,26 @@ public class LOGIN extends javax.swing.JFrame {
     private void SIGUIENTEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SIGUIENTEMouseClicked
         // TODO add your handling code here:
                     SISTEMA menu = new SISTEMA();
-        menu.setVisible(true);
+
+        
+        
+        if (TXTUSUARIO.getText().equals("")) {
+            
+            JOptionPane.showMessageDialog(null, "Debes poner un Usuario!", "Message", JOptionPane.WARNING_MESSAGE); 
+            
+        } else if(CONTRASEÑA.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debes poner una Contraseña!", "Message", JOptionPane.WARNING_MESSAGE);
+            }else   if (TXTUSUARIO.getText().equals("LISSETH") && CONTRASEÑA.getText().contains("1234")) {
+                    menu.setVisible(true);
         menu.pack();
         menu.setLocationRelativeTo(null);
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecto", "Message", JOptionPane.ERROR_MESSAGE);
+        }
         
+        this.limpiar();
     }//GEN-LAST:event_SIGUIENTEMouseClicked
 
     /**

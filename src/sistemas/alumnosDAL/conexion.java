@@ -18,8 +18,8 @@ public class conexion {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection(strConexionDB);
             
-            System.out.println("Se conecto correctamente!");
-        } catch (Exception e) {
+            System.out.println("Se conecto correctamente");
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Hubo Un Error!");
         }
 
@@ -35,7 +35,7 @@ public class conexion {
             return 1;
             
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("e");
             return 0;
         }
     }
@@ -48,8 +48,8 @@ public class conexion {
                 return respuesta;
                         
                 
-            } catch (Exception e) {
-                System.out.println(e);
+            } catch (SQLException e) {
+                System.out.println("e");
                 return null;
             }
 }

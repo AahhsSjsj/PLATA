@@ -7,6 +7,8 @@
 package sistemas.alumnosGUI;
 import sistemas.alumnosBL.alumnosBL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import sistemas.alumnosDAL.conexion;
@@ -36,7 +38,7 @@ public class SISTEMA extends javax.swing.JFrame {
         
         btnagregar.setEnabled(true);
         btneditar.setEnabled(false);
-        btncancelar.setEnabled(true);
+        btncancelar.setEnabled(false);
         btnborrar.setEnabled(false);
         
         mostrarDatos();
@@ -108,7 +110,26 @@ public class SISTEMA extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel5.setText("APELLIDOS");
 
+        txtapellidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtapellidosActionPerformed(evt);
+            }
+        });
+
+        txtnombres.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtnombresMouseClicked(evt);
+            }
+        });
+
+        txtid.setEditable(false);
+
         btnagregar.setText("AGREGAR");
+        btnagregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnagregarMouseClicked(evt);
+            }
+        });
         btnagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnagregarActionPerformed(evt);
@@ -257,21 +278,43 @@ public class SISTEMA extends javax.swing.JFrame {
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
     
         // TODO add your handling code here:
-                conexion ObjConexion = new conexion();
+        conexion ObjConexion = new conexion();
+       
         
-        alumnosBL oalumnos = recuperarDatosGUI();
+        
+        String txt2 = txtnombres.getText().trim();
+        String txt3 = txtapellidos.getText().trim();
+        
+        if(txt2.length() >= 1 && txt3.length() >= 1) {
+        
+                alumnosBL oalumnos = recuperarDatosGUI();
         
         String strSentenciaInsert = String.format("INSERT INTO ALUMNOS (ID, nombres, apellidos) "
                 + "VALUES (null, '%s', '%s')",oalumnos.getNombres(),oalumnos.getApellidos());
         
-        
-        
         ObjConexion.ejecutarSentenciaSQL(strSentenciaInsert);
+        
+
+        
+        } else{
+          
+            JOptionPane.showMessageDialog(null, "Se Escribe Por lo menos un caracter!", "Message", JOptionPane.ERROR_MESSAGE);
+        
+        }
+
+    
         
         
         this.mostrarDatos();
         this.limpiar();
         
+                      btnagregar.setEnabled(true);
+        btnborrar.setEnabled(false);
+        btneditar.setEnabled(false);
+        btncancelar.setEnabled(false);
+
+        
+    
     }//GEN-LAST:event_btnagregarActionPerformed
 
        public void mostrarDatos() {
@@ -288,8 +331,8 @@ public class SISTEMA extends javax.swing.JFrame {
                 Object[] oUsuario={resultado.getString("ID"),resultado.getString("nombres"),resultado.getString("apellidos") };
                 modelo.addRow(oUsuario);
             }
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            System.out.println("e");
         }
              
        
@@ -322,6 +365,10 @@ public class SISTEMA extends javax.swing.JFrame {
         
         this.mostrarDatos();
         this.limpiar();
+          btnagregar.setEnabled(true);
+        btnborrar.setEnabled(false);
+        btneditar.setEnabled(false);
+        btncancelar.setEnabled(false);
     }//GEN-LAST:event_btneditarActionPerformed
 
     private void btnborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnborrarActionPerformed
@@ -337,12 +384,23 @@ public class SISTEMA extends javax.swing.JFrame {
         ObjConexion.ejecutarSentenciaSQL(strSentenciaInsert);
         this.mostrarDatos();
         this.limpiar();
+          btnagregar.setEnabled(true);
+        btnborrar.setEnabled(false);
+        btneditar.setEnabled(false);
+        btncancelar.setEnabled(false);
+       
         
     }//GEN-LAST:event_btnborrarActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
         // TODO add your handling code here:
         this.limpiar();
+        this.mostrarDatos();
+        btnagregar.setEnabled(true);
+        btnborrar.setEnabled(false);
+        btneditar.setEnabled(false);
+        btncancelar.setEnabled(false);
+        
     }//GEN-LAST:event_btncancelarActionPerformed
 
     private void tblalumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblalumnosMouseClicked
@@ -360,6 +418,20 @@ public class SISTEMA extends javax.swing.JFrame {
         btnborrar.setEnabled(true);
         btncancelar.setEnabled(true);
     }//GEN-LAST:event_tblalumnosMouseClicked
+
+    private void txtnombresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtnombresMouseClicked
+        // TODO add your handling code here:
+        btncancelar.setEnabled(true);
+    }//GEN-LAST:event_txtnombresMouseClicked
+
+    private void txtapellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtapellidosActionPerformed
+        // TODO add your handling code here:
+        btncancelar.setEnabled(true);
+    }//GEN-LAST:event_txtapellidosActionPerformed
+
+    private void btnagregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnagregarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnagregarMouseClicked
 
         public void limpiar() {
  
@@ -404,10 +476,8 @@ public class SISTEMA extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SISTEMA().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new SISTEMA().setVisible(true);
         });
     }
 
