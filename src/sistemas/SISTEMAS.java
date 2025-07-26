@@ -5,6 +5,8 @@
  */
 
 package sistemas;
+import javax.swing.JFrame;
+import sistemas.alumnosGUI.LOGIN;
 
 /**
  *
@@ -17,6 +19,14 @@ public class SISTEMAS {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        
+        LOGIN lg = new LOGIN();
+        
+        lg.pack();
+        lg.setLocationRelativeTo(null);
+        lg.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        lg.setVisible(true);
     }
     
 }
