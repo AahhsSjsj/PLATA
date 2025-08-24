@@ -35,7 +35,7 @@ public class LOGIN extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debes Poner un caracter!", "Message", JOptionPane.ERROR_MESSAGE);
         } else 
         
-        if (usuario.equals("LISSETH")&&(contra.equals("1234"))){
+        if (usuario.equals("cristo")&&(contra.equals("1234"))){
             SISTEMA menu = new SISTEMA();
         menu.setVisible(true);
         menu.pack();
