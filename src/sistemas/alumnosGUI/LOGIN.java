@@ -99,6 +99,7 @@ public class LOGIN extends javax.swing.JFrame {
         });
 
         CONTRASEÑA.setBackground(new java.awt.Color(153, 255, 153));
+        CONTRASEÑA.setToolTipText("");
         CONTRASEÑA.setBorder(null);
         CONTRASEÑA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
